@@ -1,6 +1,11 @@
+package player;
+
+import item.ItemStruct;
+
 public class Player {
 	public String name = "player";
-	public Object[] inventory = new Object[32];
+	public int inventorySize = 32;
+	public ItemStruct[] inventory = new ItemStruct[inventorySize];
 	
 	public HealthSystem healthSystem;
 	public HungerSystem hungerSystem;

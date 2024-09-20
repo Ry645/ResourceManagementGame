@@ -1,3 +1,4 @@
+package player;
 public class HealthSystem {
 	public int health = 10;
 	public int minHealth = 0;

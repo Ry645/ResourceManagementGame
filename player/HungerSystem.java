@@ -1,3 +1,4 @@
+package player;
 public class HungerSystem {
 	public int hunger = 10;
 	public int minHunger = 0;

@@ -1,3 +1,4 @@
+package item;
 public class ItemStruct {
 	public String name = "DEFAULT_NAME";
 	public int number;

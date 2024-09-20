@@ -1,5 +1,8 @@
 import java.util.Scanner;
 
+import actions.*;
+import player.Player;
+
 public class Main {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
@@ -16,12 +19,8 @@ public class Main {
 			player.healthSystem.health, player.hungerSystem.hunger
 		);
 		
-		Action[] actions = {
-			new Action("collect sticks"),
-			new Action("collect loose rocks"),
-			new Action("forage for food"),
-			new Action("wait")
-		};
+		Action[] actions = generateActions(player);
+		
 		System.out.println("You're in a forest. What do you do?");
 		for (int i = 0; i < actions.length; i++) {
 			System.out.println(actions[i].name + " " + i);
@@ -32,5 +31,14 @@ public class Main {
 		System.out.printf("You %s.", actions[actionIndex].name);
 		
 		sc.close();
+	}
+	
+	public static Action[] generateActions(Player player) {
+		String[] allActionNames = Action.allActionNames;
+		Action[] actionObjects = new Action[allActionNames.length];
+		for (int i = 0; i < allActionNames.length; i++) {
+			actionObjects[i] = new Action(allActionNames[i], player);
+		}
+		return actionObjects;
 	}
 }
