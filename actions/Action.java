@@ -1,28 +1,6 @@
-#include <string>
-#include <iostream>
-#include "Action.hpp"
-using namespace std;
+package actions;
 
-Action::Action(string name)
-{
-	
-}
-
-Action::~Action()
-{
-}
-
-int main(int argc, char const *argv[])
-{
-	int a;
-	cout << "fuk u";
-	cin >> a;
-	return 0;
-}
-
-
-
-/*
+import player.Player;
 
 public class Action {
 	public static String[] allActionNames = {
@@ -41,8 +19,8 @@ public class Action {
 	}
 	
 	public void doAction() {
-		switch ("true") {
-			case "value":
+		switch (allActionNames) {
+			case value:
 				
 				break;
 		
@@ -51,4 +29,3 @@ public class Action {
 		}
 	}
 }
-*/

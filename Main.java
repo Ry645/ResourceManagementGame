@@ -1,26 +1,23 @@
-#include <iostream>
-#include <string>
-using namespace std;
+import java.util.Scanner;
 
-int main()
-{
-	string playerName;
-	cout << "Hit enter to start game!\n";
-	cin >> playerName;
-	
-	cout << "Enter the name of your character: ";
-	scanf("%s", playerName);
-	
-	cout << playerName;
-	
-	printf("New Character: %s\nHealth: %d\nHunger: %d\n\n", playerName, 10, 10);
-	
-	return 0;
-}
+import actions.*;
+import player.Player;
 
-/*
 public class Main {
 	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.println("Hit enter to start game!");
+		sc.nextLine();
+		
+		System.out.print("Enter the name of your character: ");
+		String name = sc.nextLine();
+		
+		Player player = new Player(name, 10, 0, 10, 10, 0, 10);
+		
+		System.out.printf("New Character: %s\nHealth: %d\nHunger: %d\n\n", player.name,
+			player.healthSystem.health, player.hungerSystem.hunger
+		);
 		
 		Action[] actions = generateActions(player);
 		
@@ -45,5 +42,3 @@ public class Main {
 		return actionObjects;
 	}
 }
-
-*/
