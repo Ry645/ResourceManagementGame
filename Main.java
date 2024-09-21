@@ -14,6 +14,7 @@ public class Main {
 		String name = sc.nextLine();
 		
 		Player player = new Player(name, 10, 0, 10, 10, 0, 10);
+		Action.init(player);
 		
 		System.out.printf("New Character: %s\nHealth: %d\nHunger: %d\n\n", player.name,
 			player.healthSystem.health, player.hungerSystem.hunger
@@ -28,7 +29,8 @@ public class Main {
 		
 		int actionIndex = sc.nextInt();
 		
-		System.out.printf("You %s.", actions[actionIndex].name);
+		System.out.printf("You %s.\n", actions[actionIndex].name);
+		actions[actionIndex].doAction();
 		
 		sc.close();
 	}
