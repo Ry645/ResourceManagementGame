@@ -1,6 +1,22 @@
-package actions;
+#include <string>
+#include <Action.h>
 
-import player.Player;
+class Action {
+	public:
+		Action(string name);
+		~Action();
+};
+
+Action::Action(string name)
+{
+}
+
+Action::~Action()
+{
+}
+
+
+/*
 
 public class Action {
 	public static String[] allActionNames = {
@@ -19,8 +35,8 @@ public class Action {
 	}
 	
 	public void doAction() {
-		switch (allActionNames) {
-			case value:
+		switch ("true") {
+			case "value":
 				
 				break;
 		
@@ -29,3 +45,4 @@ public class Action {
 		}
 	}
 }
+*/
