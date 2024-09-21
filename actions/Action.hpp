@@ -1,7 +1,8 @@
 #include <string>
+using namespace std;
 
 class Action {
 	public:
-		Action();
+		Action(string name);
 		~Action();
 };

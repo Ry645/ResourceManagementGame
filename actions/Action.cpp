@@ -1,19 +1,25 @@
 #include <string>
-#include <Action.h>
-
-class Action {
-	public:
-		Action(string name);
-		~Action();
-};
+#include <iostream>
+#include "Action.hpp"
+using namespace std;
 
 Action::Action(string name)
 {
+	
 }
 
 Action::~Action()
 {
 }
+
+int main(int argc, char const *argv[])
+{
+	int a;
+	cout << "fuk u";
+	cin >> a;
+	return 0;
+}
+
 
 
 /*
