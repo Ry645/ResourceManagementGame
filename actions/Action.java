@@ -2,6 +2,7 @@ package actions;
 
 import java.util.HashMap;
 import player.Player;
+import item.ItemStruct;
 
 public class Action {
 	public static HashMap<String, Runnable> getActionMethod = new HashMap<String, Runnable>();
@@ -12,12 +13,14 @@ public class Action {
 		"collect sticks",
 		"collect loose rocks",
 		"forage for food",
+		"show inventory",
 	};
 	
 	public static Runnable[] allActionMethods = {
 		Action::collectSticks,
 		Action::collectLooseRocks,
 		Action::foodForage,
+		Action::printInventory,
 	};
 	
 	public String name;
@@ -40,17 +43,23 @@ public class Action {
 	
 	
 	
-	
+	//#region Action Methods
 	
 	public static void collectSticks() {
-		System.out.println("collect states");
+		player.inventory.collect(new ItemStruct("stick", 3));
 	}
 	
 	public static void collectLooseRocks() {
-		System.out.println("rock and stone");
+		player.inventory.collect(new ItemStruct("rock", 4));
 	}
 	
 	public static void foodForage() {
-		System.out.println("fooooooooof");
+		player.inventory.collect(new ItemStruct("berry", 24));
 	}
+	
+	public static void printInventory() {
+		System.out.println(player.inventory);
+	}
+	
+	//#endregion
 }

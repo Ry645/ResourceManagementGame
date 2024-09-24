@@ -1,3 +1,5 @@
+//Tags: TEMP, TEST
+
 import java.util.Scanner;
 
 import actions.*;
@@ -22,19 +24,35 @@ public class Main {
 		
 		Action[] actions = generateActions(player);
 		
-		System.out.println("You're in a forest. What do you do?");
-		for (int i = 0; i < actions.length; i++) {
-			System.out.println(actions[i].name + " " + i);
+		while (true) {
+			System.out.println("You're in a forest. What do you do?");
+			//TEST make sure prints out same
+			printActions(actions);
+			
+			int actionIndex = sc.nextInt();
+			
+			//TEMP make different action eventually?
+			if (actionIndex == -1) {
+				System.out.println("Exiting program...");
+				break;
+			}
+			
+			if (actionIndex < 0 || actionIndex >= actions.length) {
+				System.out.println("invalid option, please try again");
+				continue;
+			}
+			
+			//TODO migrate to actual action methods instead of inlining in the main method
+			System.out.printf("You %s.\n", actions[actionIndex].name);
+			
+			actions[actionIndex].doAction();
 		}
 		
-		int actionIndex = sc.nextInt();
-		
-		System.out.printf("You %s.\n", actions[actionIndex].name);
-		actions[actionIndex].doAction();
 		
 		sc.close();
 	}
 	
+	//TODO will eventually slowly introduce actions to the player as progression increases
 	public static Action[] generateActions(Player player) {
 		String[] allActionNames = Action.allActionNames;
 		Action[] actionObjects = new Action[allActionNames.length];
@@ -42,5 +60,11 @@ public class Main {
 			actionObjects[i] = new Action(allActionNames[i], player);
 		}
 		return actionObjects;
+	}
+	
+	public static void printActions(Action[] actions) {
+		for (int i = 0; i < actions.length; i++) {
+			System.out.println(actions[i].name + " " + i);
+		}
 	}
 }

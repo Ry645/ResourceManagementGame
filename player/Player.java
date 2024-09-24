@@ -1,11 +1,11 @@
 package player;
 
-import item.ItemStruct;
+import inventory.Inventory;
 
 public class Player {
 	public String name = "player";
 	public int inventorySize = 32;
-	public ItemStruct[] inventory = new ItemStruct[inventorySize];
+	public Inventory inventory;
 	
 	public HealthSystem healthSystem;
 	public HungerSystem hungerSystem;
@@ -16,9 +16,10 @@ public class Player {
 		if (!name1.equals("")) {
 			name = name1;
 		}
+		
+		inventory = new Inventory();
 		healthSystem = new HealthSystem(health, minHealth, maxHealth);
 		hungerSystem = new HungerSystem(hunger, minHunger, maxHunger);
 	}
-	
 	
 }
