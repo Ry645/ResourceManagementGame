@@ -3,6 +3,7 @@ package actions;
 import java.util.HashMap;
 import player.Player;
 import item.ItemStruct;
+import minigames.*;
 
 public class Action {
 	public static HashMap<String, Runnable> getActionMethod = new HashMap<String, Runnable>();
@@ -46,6 +47,9 @@ public class Action {
 	//#region Action Methods
 	
 	public static void collectSticks() {
+		StickMinigame stickMinigame = new StickMinigame();
+		System.out.println(stickMinigame);
+		
 		player.inventory.collect(new ItemStruct("stick", 3));
 	}
 	
