@@ -5,11 +5,13 @@ import java.util.Scanner;
 import actions.*;
 import player.Player;
 
+//TODO make the print output a little more readable somehow
+//use scanner to slow down text output
 public class Main {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		
-		System.out.println("Hit enter to start game!");
+		System.out.print("Hit enter to start game! ");
 		sc.nextLine();
 		
 		System.out.print("Enter the name of your character: ");
@@ -29,23 +31,30 @@ public class Main {
 			//TEST make sure prints out same
 			printActions(actions);
 			
-			int actionIndex = sc.nextInt();
+			int actionIndex;
+			
+			while (true) {
+				actionIndex = sc.nextInt();
+				
+				if ((actionIndex < 0 || actionIndex >= actions.length) && actionIndex != -1) {
+					System.out.println("invalid option, please try again");
+					continue;
+				}
+				break;
+			}
 			
 			//TEMP make different action eventually?
 			if (actionIndex == -1) {
 				System.out.println("Exiting program...");
+				System.out.println();
 				break;
 			}
 			
-			if (actionIndex < 0 || actionIndex >= actions.length) {
-				System.out.println("invalid option, please try again");
-				continue;
-			}
-			
-			//TODO migrate to actual action methods instead of inlining in the main method
-			System.out.printf("You %s.\n", actions[actionIndex].name);
+			//TODO migrate to actual action methods
+			//System.out.printf("You %s.\n", actions[actionIndex].name);
 			
 			actions[actionIndex].doAction();
+			System.out.println();
 		}
 		
 		
