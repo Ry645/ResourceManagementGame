@@ -18,7 +18,7 @@ enum Direction {
 }
 
 public class StickMinigame {
-	public static final String leafSymbol = "O";
+	public static final String leafSymbol = "·";
 	public static final String stickSymbol = "#";
 	
 	public static final int totalRows = 8;
@@ -40,7 +40,7 @@ public class StickMinigame {
 	public int length;
 	
 	public static void main(String[] args) {
-		StickMinigame stickMinigame = new StickMinigame(7,7,7,8);
+		StickMinigame stickMinigame = new StickMinigame(0, 0, 1, 6);
 		System.out.println(stickMinigame);
 		return;
 	}
@@ -74,13 +74,16 @@ public class StickMinigame {
 	}
 	
 	//INFO this works well
+	//returns the number of points hanging off the tile
 	public static int calculateHangingPointsCount(int start, int length, int traversalDirection, int total) {
 		int endpoint = (start + length * traversalDirection);
 		int toSubtract = endpoint < 0 ? 0 : total - 1;
 		int hangingPointsCount = endpoint / total != 0 || endpoint < 0 ? (endpoint - toSubtract) : 0;
-		return hangingPointsCount;
+		return Math.abs(hangingPointsCount);
 	}
 	
+	// generates a stick in the gameTile array
+	// shifts the stick based on whether or not it would hang off the tile if not shifted
 	public void generateStickInGameTile() {
 		//INFO : THAT'S FUKIN CLEANNNNNNNNN
 		//-1, 0, or 1
@@ -90,10 +93,10 @@ public class StickMinigame {
 		//INFO : this took forever
 		int hangingRows = calculateHangingPointsCount(startingRow, length, rowTraversal, totalRows);
 		//shifts the stick based on the number of hanging
-		startingRow -= hangingRows - 1;
+		startingRow -= (hangingRows - (hangingRows == 0 ? 0 : 1)) * rowTraversal;
 		
 		int hangingColumns = calculateHangingPointsCount(startingColumn, length, columnTraversal, totalColumns);
-		startingColumn -= hangingColumns - 1;
+		startingColumn -= (hangingColumns - (hangingColumns == 0 ? 0 : 1)) * columnTraversal;
 		
 		for (int i = 0; i < length; i++) {
 				gameTile[startingRow + (i * rowTraversal)][startingColumn + (i * columnTraversal)] = 1;
