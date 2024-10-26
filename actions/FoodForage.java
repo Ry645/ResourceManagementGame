@@ -17,7 +17,7 @@ public class FoodForage extends Action {
      * makes the player forage for food and puts it in their inventory.
      */
     public void foodForage() {
-		player.inventory.collect(new ItemStruct("berry", 24));
+		player.getInventory().collect(new ItemStruct("berry", 24));
 	}
     
 }

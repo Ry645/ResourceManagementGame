@@ -21,6 +21,6 @@ public class CollectSticks extends Action {
 		StickMinigame stickMinigame = new StickMinigame();
 		System.out.println(stickMinigame);
 		
-		player.inventory.collect(new ItemStruct("stick", 3));
+		player.getInventory().collect(new ItemStruct("stick", 3));
 	}
 }

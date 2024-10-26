@@ -1,7 +1,20 @@
 package utils;
 
+/**
+ * utility methods that other classes can use.
+ *
+ * @author Ryan Sexton
+ * @version 1.0
+ */
 public class Utils {
-	//TEST
+	//TODO TEST
+    //TODO RAND
+    /**
+     * gets a random index from an array of weighted values.
+     * example: can be used in a random item drop pool where some items are rarer than others.
+     *
+     * @param weights the array of weighted values
+     */
 	public static int getRandomIndexFromWeights(int[] weights) {
 		int totalWeight = 0;
 		for (int weight : weights) {

@@ -1,4 +1,5 @@
-//Tags: TEMP, TEST
+//todo tags: TEMP, TEST, WARNING, FINISH, RAND
+//info tags: INFO
 
 import java.util.Scanner;
 
@@ -19,15 +20,14 @@ public class Main {
 		
 		Player player = new Player(name, 10, 0, 10, 10, 0, 10);
 		
-		System.out.printf("New Character: %s\nHealth: %d\nHunger: %d\n\n", player.name,
-			player.healthSystem.health, player.hungerSystem.hunger
+		System.out.printf("New Character: %s\nHealth: %d\nHunger: %d\n\n", player.getName(),
+			player.getHealthSystem().getHealth(), player.getHungerSystem().getHunger()
 		);
 		
 		Action[] actions = Action.generateActions(player);
 		
 		while (true) {
 			System.out.println("You're in a forest. What do you do?");
-			//TEST make sure prints out same
 			printActions(actions);
 			
 			int actionIndex;
@@ -42,7 +42,7 @@ public class Main {
 				break;
 			}
 			
-			//TEMP make different action eventually?
+			//TODO TEMP make different action eventually?
 			if (actionIndex == -1) {
 				System.out.println("Exiting program...");
 				System.out.println();

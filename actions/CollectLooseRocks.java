@@ -17,6 +17,6 @@ public class CollectLooseRocks extends Action {
      * makes the player collect loose rocks and adds them to their inventory.
      */
     public void collectLooseRocks() {
-		player.inventory.collect(new ItemStruct("rock", 4));
+		player.getInventory().collect(new ItemStruct("rock", 4));
 	}
 }

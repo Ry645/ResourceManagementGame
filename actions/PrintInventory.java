@@ -16,6 +16,6 @@ public class PrintInventory extends Action {
      * prints the inventory of the player.
      */
     public void printInventory() {
-		System.out.println(player.inventory);
+		System.out.println(player.getInventory());
 	}
 }
