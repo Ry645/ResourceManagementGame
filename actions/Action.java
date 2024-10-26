@@ -1,69 +1,73 @@
 package actions;
 
-import java.util.HashMap;
 import player.Player;
-import item.ItemStruct;
-import minigames.*;
 
-public class Action {
-	public static HashMap<String, Runnable> getActionMethod = new HashMap<String, Runnable>();
-	
-	public static Player player;
-	
-	public static String[] allActionNames = {
-		"collect sticks",
-		"collect loose rocks",
-		"forage for food",
-		"show inventory",
-	};
-	
-	public static Runnable[] allActionMethods = {
-		Action::collectSticks,
-		Action::collectLooseRocks,
-		Action::foodForage,
-		Action::printInventory,
-	};
-	
-	public String name;
-	
-	public Action(String name, Player player) {
-		this.name = name;
+/**
+ * represents an action that can be performed.
+ *
+ * @author Ryan Sexton
+ * @version 1.0
+ */
+public abstract class Action {
+    //TODO will eventually slowly introduce actions to the player as progression increases
+    /**
+     * generates actions for the player to use.
+     *
+     * @param player the player that will perform all of these actions
+     */
+    public static Action[] generateActions(Player player) {
+        
+		Action[] actions = {
+            new CollectSticks(player),
+            new CollectLooseRocks(player),
+            new FoodForage(player),
+            new PrintInventory(player),
+        };
+        
+        return actions;
+    }
+    
+    /**
+     * a reference to the player the action can call methods on.
+     */
+    Player player;
+    
+    /**
+     * the name of the action.
+     */
+    String name;
+    
+    /**
+     * performs an arbitrary action.
+     */
+    public abstract void doAction();
+    
+    /**
+     * represents the contruction of an action object.
+     *
+     * @param player the action name
+     * @param name the action name
+     */
+	public Action(Player player, String name) {
+        this.player = player;
+        this.name = name;
 	}
-	
-	//always do this at the very start of the program
-	public static void init(Player playerRef) {
-		player = playerRef;
-		for (int i = 0; i < allActionNames.length; i++) {
-			getActionMethod.put(allActionNames[i], allActionMethods[i]);
-		}
-	}
-		
-	public void doAction() {
-		getActionMethod.get(name).run();
-	}
-	
-	
-	
-	//#region Action Methods
-	
-	public static void collectSticks() {
-		StickMinigame stickMinigame = new StickMinigame();
-		System.out.println(stickMinigame);
-		
-		player.inventory.collect(new ItemStruct("stick", 3));
-	}
-	
-	public static void collectLooseRocks() {
-		player.inventory.collect(new ItemStruct("rock", 4));
-	}
-	
-	public static void foodForage() {
-		player.inventory.collect(new ItemStruct("berry", 24));
-	}
-	
-	public static void printInventory() {
-		System.out.println(player.inventory);
-	}
-	
-	//#endregion
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+    
+    
 }

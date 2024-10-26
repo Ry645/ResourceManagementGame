@@ -18,13 +18,12 @@ public class Main {
 		String name = sc.nextLine();
 		
 		Player player = new Player(name, 10, 0, 10, 10, 0, 10);
-		Action.init(player);
 		
 		System.out.printf("New Character: %s\nHealth: %d\nHunger: %d\n\n", player.name,
 			player.healthSystem.health, player.hungerSystem.hunger
 		);
 		
-		Action[] actions = generateActions(player);
+		Action[] actions = Action.generateActions(player);
 		
 		while (true) {
 			System.out.println("You're in a forest. What do you do?");
@@ -60,20 +59,10 @@ public class Main {
 		
 		sc.close();
 	}
-	
-	//TODO will eventually slowly introduce actions to the player as progression increases
-	public static Action[] generateActions(Player player) {
-		String[] allActionNames = Action.allActionNames;
-		Action[] actionObjects = new Action[allActionNames.length];
-		for (int i = 0; i < allActionNames.length; i++) {
-			actionObjects[i] = new Action(allActionNames[i], player);
-		}
-		return actionObjects;
-	}
-	
+    	
 	public static void printActions(Action[] actions) {
 		for (int i = 0; i < actions.length; i++) {
-			System.out.println(actions[i].name + " " + i);
+			System.out.println(actions[i].getName() + " " + i);
 		}
 	}
 }
