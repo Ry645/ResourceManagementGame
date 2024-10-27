@@ -67,7 +67,7 @@ public class StickMinigame {
 	
 	public static void main(String[] args) {
 		StickMinigame stickMinigame = new StickMinigame(0, 0, 1, 6);
-		System.out.println(stickMinigame);
+		System.out.println(stickMinigame.minigameBoard());
 		return;
 	}
 	
@@ -219,8 +219,14 @@ public class StickMinigame {
      * shows the leaves, empty patches, and found stick segments.
      */
     public String minigameBoard() {
-        String toReturn = "";
+        String toReturn = "  ";
+        for (int i = 0; i < gameTile.length; i++) {
+            toReturn += i + " ";
+        }
+        toReturn += "\n";
+        
 		for (int i = 0; i < gameTile.length; i++) {
+            toReturn += i + " ";
 			for (int j = 0; j < gameTile[i].length; j++) {
                 String toAdd;
                 switch (gameTile[i][j]) {
@@ -247,29 +253,4 @@ public class StickMinigame {
 		
 		return toReturn;
     }
-    
-    //testing purposes
-    @Override
-	public String toString() {
-		String toReturn = "";
-		for (int i = 0; i < gameTile.length; i++) {
-			for (int j = 0; j < gameTile[i].length; j++) {
-				toReturn += (gameTile[i][j] == 1 ? STICK_SYMBOL : LEAF_SYMBOL) + " ";
-			}
-			toReturn += "\n";
-		}
-		
-		return toReturn;
-		
-		/*
-		return 		"O O O O O O O O \n"
-				+	"O O O O O O O O \n"
-				+	"O O O O O O O O \n"
-				+	"O O O O O O O O \n"
-				+	"O O O O O O O O \n"
-				+	"O O O O O O O O \n"
-				+	"O O O O O O O O \n"
-				+	"O O O O O O O O \n";
-		*/
-	}
 }
