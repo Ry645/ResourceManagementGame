@@ -67,7 +67,7 @@ public class StickMinigame {
 	
 	public static void main(String[] args) {
 		StickMinigame stickMinigame = new StickMinigame(0, 0, 1, 6);
-		System.out.println(stickMinigame.minigameBoard());
+		System.out.println(stickMinigame.minigameBoard(false));
 		return;
 	}
 	
@@ -155,33 +155,18 @@ public class StickMinigame {
      */
     public void playMinigame(Player player) {
         Scanner sc = player.getPlayerInput();
+        boolean wonMinigame = false;
         while (true) {
             //print out minigameBoard
-            System.out.println(minigameBoard());
-            
-            //check if stick is fully revealed
-            int count = 0;
-            for (int i = 0; i < gameTile.length; i++) {
-                for (int j = 0; j < gameTile[i].length; j++) {
-                    if (gameTile[i][j] == 3) {
-                        count++;
-                    }
-                }
-            }
-            if (count >= length) {
-                player.getInventory().collect(new ItemStruct("stick", 1));
-                System.out.print("You got a stick! Hit enter to continue: ");
-                sc.nextLine();
-                return;
-            }
+            System.out.println(minigameBoard(false));
             
             //prompt user to type in row and column
             System.out.print("Enter a column and row (starts at 0): ");
             
             int[] rowAndColumn = new int[2];
             int[] maxRowAndColumn = {totalRows, totalColumns};
-            int i = rowAndColumn.length - 1;
-            while (i >= 0) {
+            int index = rowAndColumn.length - 1;
+            while (index >= 0) {
                 int input = 0;
                 if (sc.hasNextInt()) {
                     input = sc.nextInt();
@@ -191,14 +176,14 @@ public class StickMinigame {
                     continue;
                 }
                 
-                if (input < 0 || input >= maxRowAndColumn[i]) {
+                if (input < 0 || input >= maxRowAndColumn[index]) {
                     sc.nextLine();
                     System.out.print("Input out of bounds; try again: ");
                     continue;
                 }
                 
-                rowAndColumn[i] = input;
-                i--;
+                rowAndColumn[index] = input;
+                index--;
             }
             //flush input
             sc.nextLine();
@@ -210,15 +195,41 @@ public class StickMinigame {
             } else if (segmentVal == 0) {
                 gameTile[rowAndColumn[0]][rowAndColumn[1]] = 2;
             } // otherwise do nothing
+            
+            //check if stick is fully revealed
+            int count = 0;
+            for (int i = 0; i < gameTile.length; i++) {
+                for (int j = 0; j < gameTile[i].length; j++) {
+                    if (gameTile[i][j] == 3) {
+                        count++;
+                    }
+                }
+            }
+            if (count >= length) {
+                wonMinigame = true;
+                break;
+            }
         }
         
+        //broken out of loop
+        if (wonMinigame) {
+            //TODO
+            System.out.println(minigameBoard(true));
+            
+            player.getInventory().collect(new ItemStruct("stick", 1));
+            System.out.print("You got a stick! Hit enter to continue: ");
+            sc.nextLine();
+            return;
+        }
     }
     
-    //TODO add headings to each row and column
     /**
      * shows the leaves, empty patches, and found stick segments.
+     * can be configured to show just the stick.
+     * 
+     * @param isClear makes the board show only the stick if true
      */
-    public String minigameBoard() {
+    public String minigameBoard(boolean isClear) {
         String toReturn = "  ";
         for (int i = 0; i < gameTile.length; i++) {
             toReturn += i + " ";
@@ -229,12 +240,14 @@ public class StickMinigame {
             toReturn += i + " ";
 			for (int j = 0; j < gameTile[i].length; j++) {
                 String toAdd;
+                // distinction
+                String leafSymbol = isClear ? EMPTY_SYMBOL : LEAF_SYMBOL;
                 switch (gameTile[i][j]) {
                     case 0: //LEAF
-                        toAdd = LEAF_SYMBOL;
+                        toAdd = leafSymbol;
                         break;
                     case 1: //HIDDEN_STICK
-                        toAdd = LEAF_SYMBOL;
+                        toAdd = leafSymbol;
                         break;
                     case 2: //EMPTY
                         toAdd = EMPTY_SYMBOL;
