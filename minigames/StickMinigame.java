@@ -176,12 +176,12 @@ public class StickMinigame {
             }
             
             //prompt user to type in row and column
-            System.out.print("Enter a row and column (starts at 0): ");
+            System.out.print("Enter a column and row (starts at 0): ");
             
             int[] rowAndColumn = new int[2];
             int[] maxRowAndColumn = {totalRows, totalColumns};
-            int i = 0;
-            while (i < rowAndColumn.length) {
+            int i = rowAndColumn.length - 1;
+            while (i >= 0) {
                 int input = 0;
                 if (sc.hasNextInt()) {
                     input = sc.nextInt();
@@ -198,7 +198,7 @@ public class StickMinigame {
                 }
                 
                 rowAndColumn[i] = input;
-                i++;
+                i--;
             }
             //flush input
             sc.nextLine();
