@@ -18,7 +18,7 @@ public class Main {
 		System.out.print("Enter the name of your character: ");
 		String name = sc.nextLine();
 		
-		Player player = new Player(name, 10, 0, 10, 10, 0, 10);
+		Player player = new Player(name, 10, 0, 10, 10, 0, 10, sc);
 		
 		System.out.printf("New Character: %s\nHealth: %d\nHunger: %d\n\n", player.getName(),
 			player.getHealthSystem().getHealth(), player.getHungerSystem().getHunger()

@@ -4,11 +4,13 @@
 
 package minigames;
 
+import java.util.Scanner;
+
+import item.ItemStruct;
+import player.Player;
 import utils.*;
 
-/**
- * the direction a stick can face.
- */
+//technically does nothing
 enum Direction {
 	EAST,
 	NORTHEAST,
@@ -20,17 +22,31 @@ enum Direction {
 	SOUTHEAST,
 }
 
+//does nothing
+enum SegmentType {
+    LEAF,
+    HIDDEN_STICK,
+    EMPTY,
+    REVEALED_STICK,
+}
+
 public class StickMinigame {
 	/**
      * the symbol of a leaf in this minigame.
      */
-    public static final String leafSymbol = "·";
+    public static final String LEAF_SYMBOL = "·";
     
     /**
      * the symbol of a stick in this minigame.
      */
-	public static final String stickSymbol = "#";
-	
+	public static final String STICK_SYMBOL = "#";
+    
+    /**
+     * the symbol of a empty patch in this minigame.
+     */
+	public static final String EMPTY_SYMBOL = " ";
+    
+    
 	private static final int totalRows = 8;
 	private static final int totalColumns = 8;
 	
@@ -129,13 +145,116 @@ public class StickMinigame {
 				gameTile[startingRow + (i * rowTraversal)][startingColumn + (i * columnTraversal)] = 1;
 		}
 	}
-	
+    
+    /**
+     * plays this stick minigame.
+     * the player reveals leaves to find a stick.
+     * once the player sees the entire stick, they get a stick.
+     *
+     * @param player the player attempting the minigame
+     */
+    public void playMinigame(Player player) {
+        Scanner sc = player.getPlayerInput();
+        while (true) {
+            //print out minigameBoard
+            System.out.println(minigameBoard());
+            
+            //check if stick is fully revealed
+            int count = 0;
+            for (int i = 0; i < gameTile.length; i++) {
+                for (int j = 0; j < gameTile[i].length; j++) {
+                    if (gameTile[i][j] == 3) {
+                        count++;
+                    }
+                }
+            }
+            if (count >= length) {
+                player.getInventory().collect(new ItemStruct("stick", 1));
+                System.out.print("You got a stick! Hit enter to continue: ");
+                sc.nextLine();
+                return;
+            }
+            
+            //prompt user to type in row and column
+            System.out.print("Enter a row and column (starts at 0): ");
+            
+            int[] rowAndColumn = new int[2];
+            int[] maxRowAndColumn = {totalRows, totalColumns};
+            int i = 0;
+            while (i < rowAndColumn.length) {
+                int input = 0;
+                if (sc.hasNextInt()) {
+                    input = sc.nextInt();
+                } else {
+                    sc.nextLine();
+                    System.out.print("Input invalid; try again: ");
+                    continue;
+                }
+                
+                if (input < 0 || input >= maxRowAndColumn[i]) {
+                    sc.nextLine();
+                    System.out.print("Input out of bounds; try again: ");
+                    continue;
+                }
+                
+                rowAndColumn[i] = input;
+                i++;
+            }
+            //flush input
+            sc.nextLine();
+            
+            //reveal segment
+            int segmentVal = gameTile[rowAndColumn[0]][rowAndColumn[1]];
+            if (segmentVal == 1) {
+                gameTile[rowAndColumn[0]][rowAndColumn[1]] = 3;
+            } else if (segmentVal == 0) {
+                gameTile[rowAndColumn[0]][rowAndColumn[1]] = 2;
+            } // otherwise do nothing
+        }
+        
+    }
+    
+    //TODO add headings to each row and column
+    /**
+     * shows the leaves, empty patches, and found stick segments.
+     */
+    public String minigameBoard() {
+        String toReturn = "";
+		for (int i = 0; i < gameTile.length; i++) {
+			for (int j = 0; j < gameTile[i].length; j++) {
+                String toAdd;
+                switch (gameTile[i][j]) {
+                    case 0: //LEAF
+                        toAdd = LEAF_SYMBOL;
+                        break;
+                    case 1: //HIDDEN_STICK
+                        toAdd = LEAF_SYMBOL;
+                        break;
+                    case 2: //EMPTY
+                        toAdd = EMPTY_SYMBOL;
+                        break;
+                    case 3: //REVEALED_STICK
+                        toAdd = STICK_SYMBOL;
+                        break;
+                    default: //handle error
+                        toAdd = EMPTY_SYMBOL;
+                        break;
+                }
+				toReturn += toAdd + " ";
+			}
+			toReturn += "\n";
+		}
+		
+		return toReturn;
+    }
+    
+    //testing purposes
     @Override
 	public String toString() {
 		String toReturn = "";
 		for (int i = 0; i < gameTile.length; i++) {
 			for (int j = 0; j < gameTile[i].length; j++) {
-				toReturn += (gameTile[i][j] == 1 ? stickSymbol : leafSymbol) + " ";
+				toReturn += (gameTile[i][j] == 1 ? STICK_SYMBOL : LEAF_SYMBOL) + " ";
 			}
 			toReturn += "\n";
 		}

@@ -1,5 +1,7 @@
 package player;
 
+import java.util.Scanner;
+
 import inventory.Inventory;
 
 /**
@@ -15,12 +17,14 @@ public class Player {
 	
 	private HealthSystem healthSystem;
 	private HungerSystem hungerSystem;
+    
+    private Scanner playerInput;
 	
     /**
      * constructs a player.
      */
 	public Player(String name, int health, int minHealth, int maxHealth,
-		int hunger, int minHunger, int maxHunger
+		int hunger, int minHunger, int maxHunger, Scanner playerInput
 	) {
 		if (name.equals("")) {
 			this.name = "player";
@@ -31,6 +35,7 @@ public class Player {
 		inventory = new Inventory();
 		healthSystem = new HealthSystem(health, minHealth, maxHealth);
 		hungerSystem = new HungerSystem(hunger, minHunger, maxHunger);
+        this.playerInput = playerInput;
 	}
     
     
@@ -56,6 +61,8 @@ public class Player {
     public HungerSystem getHungerSystem() {
         return hungerSystem;
     }
-	
     
+    public Scanner getPlayerInput() {
+        return playerInput;
+    }
 }

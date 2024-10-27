@@ -1,6 +1,5 @@
 package actions;
 
-import item.ItemStruct;
 import minigames.StickMinigame;
 import player.Player;
 
@@ -19,8 +18,6 @@ public class CollectSticks extends Action {
      */
     public void collectSticks() {
 		StickMinigame stickMinigame = new StickMinigame();
-		System.out.println(stickMinigame);
-		
-		player.getInventory().collect(new ItemStruct("stick", 3));
+		stickMinigame.playMinigame(player);
 	}
 }
